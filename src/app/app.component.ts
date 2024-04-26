@@ -39,6 +39,8 @@ export class AppComponent implements OnInit {
         case 'poedel':
           this.sentence = this.handlePoedel(this.form_input);
         break;
+        case 'parkiet':
+          this.sentence = this.handleParkiet(this.form_input);
       }
 
     } else {
@@ -67,6 +69,8 @@ export class AppComponent implements OnInit {
     const seg = new Intl.Segmenter(undefined, { granularity: 'word'})
 
     this.sentenceObject = [...seg.segment(sentence)]
+    console.log(this.sentenceObject);
+
     this.sentenceObject.forEach(segmentObject => {
 
       if (segmentObject.isWordLike) {
@@ -76,6 +80,34 @@ export class AppComponent implements OnInit {
 
     this.newSentence = this.sentenceObject.map(x => x.segment).join('');
     return this.newSentence;
+  }
+
+  handleParkiet(sentence: string) {
+    const seg = new Intl.Segmenter(undefined, { granularity: 'word'})
+
+    this.sentenceObject = [...seg.segment(sentence)]
+    console.log(this.sentenceObject);
+    this.sentenceObject.forEach(segmentObject => {
+
+
+
+      if (segmentObject.isWordLike) {
+
+        if (this.startsWithVowel(segmentObject.segment)) {
+          segmentObject.segment = 'tjilp'
+        } else {
+          segmentObject.segment = 'piep'
+        }
+
+      }
+    })
+
+    this.newSentence = this.sentenceObject.map(x => x.segment).join('');
+    return this.newSentence;
+  }
+
+  startsWithVowel(word: string) {
+    return /^[aeiou]/i.test(word); // i flag makes the regex case-insensitive
   }
 
   onSelectChangeFrom(event: any) {
