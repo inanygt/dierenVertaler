@@ -23,6 +23,8 @@ export class AppComponent implements OnInit {
   originals: string[] = ['mens', 'labrador', 'poedel', 'parkiet'];
   translators: string[] = [];
 
+  error_translation_input: string = '';
+
   className: string = '';
 
   onSubmit(form: NgForm): void {
@@ -38,6 +40,7 @@ export class AppComponent implements OnInit {
           break;
           case 'poedel':
             this.translation_output = this.handlePoedel(input);
+            this.validateLabrador(input);
             this.className = 'poedel';
           break;
           case 'parkiet':
@@ -46,6 +49,7 @@ export class AppComponent implements OnInit {
           break;
           case 'papegaai':
             this.translation_output = this.handlePapegaai(input);
+            this.validateLabrador(input);
             this.className = 'papegaai';
         }
 
@@ -139,9 +143,28 @@ export class AppComponent implements OnInit {
     this.translate_to = (event.target as HTMLInputElement).value;
   }
 
+  // validation //
+
+  validateLabrador(sentence: string): boolean {
+    const segObject = this.segmenter(sentence);
+
+    for (const segment of segObject) {
+        if (segment.isWordLike) {
+            if (segment.segment !== 'woef') {
+                console.log('false');
+                this.error_translation_input = "Input komt niet overeen met geselecteerde taal";
+                this.translation_output = '';
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
   // helpers //
 
-  segmenter(input: any) {
+  segmenter(input: string) {
     const seg = new Intl.Segmenter(undefined, { granularity: 'word'})
     return [...seg.segment(input)]
   }
