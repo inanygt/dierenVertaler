@@ -12,7 +12,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 })
 export class AppComponent implements OnInit {
 
-  title = 'dierenVertaler';
+  title = 'Hello, dierenVertaler';
 
   translation_input: string;
   translation_output: string;
@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
   translators: string[] = [];
 
   error_translation_input: string = '';
+  is_drunk: boolean = false;
 
   className: string = '';
 
@@ -81,6 +82,11 @@ export class AppComponent implements OnInit {
     })
 
     this.translation_output = segObject.map(x => x.segment).join('');
+
+    if (this.is_drunk) {
+      this.translation_output += ' Burp!'
+    }
+
     return this.translation_output;
   }
 
@@ -95,6 +101,11 @@ export class AppComponent implements OnInit {
     })
 
     this.translation_output = segObject.map(x => x.segment).join('');
+
+    if (this.is_drunk) {
+      this.translation_output += ' Burp!'
+    }
+
     return this.translation_output;
   }
 
@@ -114,13 +125,18 @@ export class AppComponent implements OnInit {
     })
 
     this.translation_output = segObject.map(x => x.segment).join('');
+
+    if (this.is_drunk) {
+      this.translation_output += ' Burp!'
+    }
+
     return this.translation_output;
   }
 
   handlePapegaai(translation_input: any): string {
 
     var result = translation_input.match( /[^\.!\?]+[\.!\?]+/g );
-    const sentences = [];
+    const sentences: string[] = [];
     const colors = ['red', 'green', 'yellow', 'blue'];
 
     result.forEach((segment, index) =>  {
@@ -128,6 +144,10 @@ export class AppComponent implements OnInit {
       const color = colors[index % colors.length];
       sentences.push(' ik praat je na: ' + `<span class="${color}">` + segment.trim() + '</span>' + '</br>');
     })
+
+    if (this.is_drunk) {
+      sentences.push(' Burp!');
+    }
 
     return sentences.join('');
   }
@@ -225,10 +245,10 @@ export class AppComponent implements OnInit {
   }
 
   onInputChange(event: Event): void {
-  const translation_input = (event.target as HTMLInputElement).value
+    const translation_input = (event.target as HTMLInputElement).value
 
-  this.detectLanguage(translation_input);
-}
+    this.detectLanguage(translation_input);
+  }
 
   detectLanguage(input: string) {
     if (input.includes('woefie')) {

@@ -108,3 +108,14 @@ select {
   color: red;
   margin-left: 1rem;
 }
+
+.checkbox_container {
+  margin-inline: 1rem 2rem;
+  display: flex;
+  align-items: flex-end;
+}
+
+input[type="checkbox"] {
+  margin-right: .6rem;
+  margin-bottom: .6rem;
+}

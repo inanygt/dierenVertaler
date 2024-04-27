@@ -3,7 +3,7 @@
   <div class="outer-container">
     <div class="form-container">
       <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
-        <h1 class="h1">Dierenvertaler</h1>
+        <h1 class="h1">{{title}}</h1>
 
         <label class="label" for="content">Te vertalen tekst</label>
         <textarea name="translation_input" id="content_input" rows="10" ngModel (input)="onInputChange($event)" required></textarea>
@@ -17,6 +17,11 @@
             <option selected >Taal herkennen</option>
             <option *ngFor="let original of originals" value="{{original}}">{{original}}</option>
           </select>
+          </div>
+
+          <div class="checkbox_container">
+            <input type="checkbox" name="drunk" [(ngModel)]="is_drunk">
+            <label for="drunk">Ik ben zo dronken!!!!</label>
           </div>
 
           <div class="translate_to_container">
