@@ -12,14 +12,12 @@ import { FormsModule, NgForm } from '@angular/forms';
 })
 export class AppComponent implements OnInit {
   title = 'dierenVertaler';
-  sentence: string;
-  newSentence: string;
-  form_input: string;
-  sentenceObject: any;
-  array: string[];
-  targetTo: string;
 
-  content_input:string;
+  translation_input: string;
+  translation_output: string;
+
+  translate_from: string;
+  translate_to: string;
 
   originals: string[] = ['mens', 'labrador', 'poedel', 'parkiet'];
   translators: string[] = [];
@@ -27,72 +25,66 @@ export class AppComponent implements OnInit {
 
   onSubmit(form: NgForm) {
 
-    this.form_input = form.value.content_input;
+    const input = form.value.translation_input;
 
-    if (typeof this.form_input === 'string' && this.form_input.length !== 0) {
+    if (typeof input === 'string' && input.length !== 0) {
 
-      switch (this.targetTo) {
+      switch (this.translate_to) {
         case 'labrador':
-          this.sentence = this.handleLabrador(this.form_input);
+          this.translation_output = this.handleLabrador(input);
         break;
         case 'poedel':
-          this.sentence = this.handlePoedel(this.form_input);
+          this.translation_output = this.handlePoedel(input);
         break;
         case 'parkiet':
-          this.sentence = this.handleParkiet(this.form_input);
+          this.translation_output = this.handleParkiet(input);
         break;
         case 'papegaai':
-          this.sentence = this.handlePapegaai(this.form_input);
+          this.translation_output = this.handlePapegaai(input);
       }
 
     } else {
-      this.sentence = '';
+      this.translation_output = '';
     }
 
   }
 
-
-
-  handleLabrador(sentence: string) {
+  handleLabrador(translation_input: string) {
 
     const seg = new Intl.Segmenter(undefined, { granularity: 'word'})
-    const test = [...seg.segment(sentence)];
+    const segObject = [...seg.segment(translation_input)]
 
-
-    this.sentenceObject = [...seg.segment(sentence)]
-
-    this.sentenceObject.forEach(segmentObject => {
+    segObject.forEach(segmentObject => {
 
       if (segmentObject.isWordLike) {
         segmentObject.segment = 'woof'
       }
     })
 
-    this.newSentence = this.sentenceObject.map(x => x.segment).join('');
-    return this.newSentence;
+    this.translation_output = segObject.map(x => x.segment).join('');
+    return this.translation_output;
   }
 
-  handlePoedel(sentence: string) {
+  handlePoedel(translation_input: string) {
     const seg = new Intl.Segmenter(undefined, { granularity: 'word'})
+    const segObject = [...seg.segment(translation_input)]
 
-    this.sentenceObject = [...seg.segment(sentence)]
-
-    this.sentenceObject.forEach(segmentObject => {
+    segObject.forEach(segmentObject => {
 
       if (segmentObject.isWordLike) {
         segmentObject.segment = 'woofie'
       }
     })
 
-    this.newSentence = this.sentenceObject.map(x => x.segment).join('');
-    return this.newSentence;
+    this.translation_output = segObject.map(x => x.segment).join('');
+    return this.translation_output;
   }
 
-  handleParkiet(sentence: string) {
+  handleParkiet(translation_input: string) {
     const seg = new Intl.Segmenter(undefined, { granularity: 'word'})
+    const segObject = [...seg.segment(translation_input)]
 
-    this.sentenceObject = [...seg.segment(sentence)]
-    this.sentenceObject.forEach(segmentObject => {
+    segObject.forEach(segmentObject => {
 
       if (segmentObject.isWordLike) {
 
@@ -104,14 +96,14 @@ export class AppComponent implements OnInit {
       }
     })
 
-    this.newSentence = this.sentenceObject.map(x => x.segment).join('');
-    return this.newSentence;
+    this.translation_output = segObject.map(x => x.segment).join('');
+    return this.translation_output;
   }
 
-  handlePapegaai(sentence: any) {
+  handlePapegaai(translation_input: any) {
 
 
-    var result = sentence.match( /[^\.!\?]+[\.!\?]+/g );
+    var result = translation_input.match( /[^\.!\?]+[\.!\?]+/g );
 
     const sentences = [];
 
@@ -151,7 +143,7 @@ export class AppComponent implements OnInit {
   }
 
   onSelectChangeTo(event: any) {
-    this.targetTo = event.target.value;
+    this.translate_to = event.target.value;
   }
 
   ngOnInit() {
