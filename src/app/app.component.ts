@@ -112,21 +112,20 @@ export class AppComponent implements OnInit {
   handlePapegaai(sentence: any) {
 
 
-    const sentences = sentence.split(/[\.\?\!]+/);
+    var result = sentence.match( /[^\.!\?]+[\.!\?]+/g );
 
-    const test = [];
+    const sentences = [];
 
+    result.forEach((segment, index) =>  {
 
-    sentences.forEach(sentence =>  {
-      if (sentence !== '') {
-        test.push('ik praat je na: ' + sentence);
+      if (index >= 1 ) {
+        sentences.push(' ik praat je na: ' + segment.trim());
+      } else {
+        sentences.push('ik praat je na: ' + segment.trim());
       }
-
     })
 
-
-
-    return sentences;
+    return sentences.join('');
 
   }
 
