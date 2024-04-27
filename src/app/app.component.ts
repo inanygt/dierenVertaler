@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   translators: string[] = [];
 
 
-  onSubmit(form: NgForm) {
+  onSubmit(form: NgForm): void {
 
     const input = form.value.translation_input;
 
@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
 
   }
 
-  handleLabrador(translation_input: string) {
+  handleLabrador(translation_input: string): string {
 
     const segObject = this.segmenter(translation_input);
     segObject.forEach(segmentObject => {
@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
     return this.translation_output;
   }
 
-  handlePoedel(translation_input: string) {
+  handlePoedel(translation_input: string): string {
 
     const segObject = this.segmenter(translation_input);
     segObject.forEach(segmentObject => {
@@ -77,7 +77,7 @@ export class AppComponent implements OnInit {
     return this.translation_output;
   }
 
-  handleParkiet(translation_input: string) {
+  handleParkiet(translation_input: string): string {
 
     const segObject = this.segmenter(translation_input);
     segObject.forEach(segmentObject => {
@@ -96,7 +96,7 @@ export class AppComponent implements OnInit {
     return this.translation_output;
   }
 
-  handlePapegaai(translation_input: any) {
+  handlePapegaai(translation_input: any): string {
 
     var result = translation_input.match( /[^\.!\?]+[\.!\?]+/g );
     const sentences = [];
@@ -112,7 +112,7 @@ export class AppComponent implements OnInit {
     return sentences.join('');
   }
 
-  onSelectChangeFrom(translate_from: string) {
+  onSelectChangeFrom(translate_from: string): void {
 
     switch (translate_from) {
       case 'mens':
@@ -130,8 +130,8 @@ export class AppComponent implements OnInit {
     }
   }
 
-  onSelectChangeTo(event: any) {
-    this.translate_to = event.target.value;
+  onSelectChangeTo(event: Event): void {
+    this.translate_to = (event.target as HTMLInputElement).value;
   }
 
   // helpers //
@@ -141,7 +141,7 @@ export class AppComponent implements OnInit {
     return [...seg.segment(input)]
   }
 
-  startsWithVowel(word: string) {
+  startsWithVowel(word: string): boolean {
     return /^[aeiou]/i.test(word);
   }
 
