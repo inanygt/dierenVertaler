@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -223,4 +223,23 @@ export class AppComponent implements OnInit {
   ngOnInit() {
 
   }
+
+  onInputChange(event: Event): void {
+  const translation_input = (event.target as HTMLInputElement).value
+
+  this.detectLanguage(translation_input);
+}
+
+  detectLanguage(input: string) {
+    if (input.includes('woefie')) {
+      this.translate_from = 'poedel';
+    } else if (input.includes('woef')) {
+      this.translate_from = 'labrador'
+    } else if (input.includes('tjilp') || (input.includes('piep'))) {
+      this.translate_from = 'parkiet';
+    } else {
+      this.translate_from = 'mens';
+    }
+  }
+
 }

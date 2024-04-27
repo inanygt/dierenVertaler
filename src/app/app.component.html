@@ -6,14 +6,15 @@
         <h1 class="h1">Dierenvertaler</h1>
 
         <label class="label" for="content">Te vertalen tekst</label>
-        <textarea name="translation_input" id="content_input" rows="10" ngModel required></textarea>
+        <textarea name="translation_input" id="content_input" rows="10" ngModel (input)="onInputChange($event)" required></textarea>
         <small class="error">{{error_translation_input}}</small>
 
         <div class="button_container">
 
           <div class="translate_from_container">
           <label for="translate_from">Van</label>
-          <select #selectFrom (change)="onSelectChangeFrom(selectFrom.value)" name="translate_from" id="" ngModel required>
+          <select #selectFrom (change)="onSelectChangeFrom(selectFrom.value)" name="translate_from" id="" [(ngModel)]="translate_from" required>
+            <option selected >Taal herkennen</option>
             <option *ngFor="let original of originals" value="{{original}}">{{original}}</option>
           </select>
           </div>
