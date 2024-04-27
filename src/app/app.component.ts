@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   originals: string[] = ['mens', 'labrador', 'poedel', 'parkiet'];
   translators: string[] = [];
 
-  className: string = 'labrador';
+  className: string = '';
 
   onSubmit(form: NgForm): void {
 
@@ -57,6 +57,7 @@ export class AppComponent implements OnInit {
   handleLabrador(translation_input: string): string {
 
     const segObject = this.segmenter(translation_input);
+
     segObject.forEach(segmentObject => {
 
       if (segmentObject.isWordLike) {
@@ -91,7 +92,6 @@ export class AppComponent implements OnInit {
         if (this.startsWithVowel(segmentObject.segment)) {
 
           segmentObject.segment = '<span class="tjilp">tjilp</span>'
-          console.log(segmentObject.segment);
         } else {
           segmentObject.segment = 'piep'
         }
@@ -111,7 +111,6 @@ export class AppComponent implements OnInit {
     result.forEach((segment, index) =>  {
 
       const color = colors[index % colors.length];
-
       sentences.push(' ik praat je na: ' + `<span class="${color}">` + segment.trim() + '</span>' + '</br>');
     })
 
