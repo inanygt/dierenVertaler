@@ -51,9 +51,7 @@ export class AppComponent implements OnInit {
 
   handleLabrador(translation_input: string) {
 
-    const seg = new Intl.Segmenter(undefined, { granularity: 'word'})
-    const segObject = [...seg.segment(translation_input)]
-
+    const segObject = this.segmenter(translation_input);
     segObject.forEach(segmentObject => {
 
       if (segmentObject.isWordLike) {
@@ -66,9 +64,8 @@ export class AppComponent implements OnInit {
   }
 
   handlePoedel(translation_input: string) {
-    const seg = new Intl.Segmenter(undefined, { granularity: 'word'})
-    const segObject = [...seg.segment(translation_input)]
 
+    const segObject = this.segmenter(translation_input);
     segObject.forEach(segmentObject => {
 
       if (segmentObject.isWordLike) {
@@ -81,9 +78,8 @@ export class AppComponent implements OnInit {
   }
 
   handleParkiet(translation_input: string) {
-    const seg = new Intl.Segmenter(undefined, { granularity: 'word'})
-    const segObject = [...seg.segment(translation_input)]
 
+    const segObject = this.segmenter(translation_input);
     segObject.forEach(segmentObject => {
 
       if (segmentObject.isWordLike) {
@@ -102,13 +98,10 @@ export class AppComponent implements OnInit {
 
   handlePapegaai(translation_input: any) {
 
-
     var result = translation_input.match( /[^\.!\?]+[\.!\?]+/g );
-
     const sentences = [];
 
     result.forEach((segment, index) =>  {
-
       if (index >= 1 ) {
         sentences.push(' ik praat je na: ' + segment.trim());
       } else {
@@ -117,11 +110,6 @@ export class AppComponent implements OnInit {
     })
 
     return sentences.join('');
-
-  }
-
-  startsWithVowel(word: string) {
-    return /^[aeiou]/i.test(word); // i flag makes the regex case-insensitive
   }
 
   onSelectChangeFrom(translate_from: string) {
@@ -144,6 +132,17 @@ export class AppComponent implements OnInit {
 
   onSelectChangeTo(event: any) {
     this.translate_to = event.target.value;
+  }
+
+  // helpers //
+
+  segmenter(input: any) {
+    const seg = new Intl.Segmenter(undefined, { granularity: 'word'})
+    return [...seg.segment(input)]
+  }
+
+  startsWithVowel(word: string) {
+    return /^[aeiou]/i.test(word);
   }
 
   ngOnInit() {
