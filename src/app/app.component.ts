@@ -57,6 +57,8 @@ export class AppComponent implements OnInit {
 
             if (this.translate_from == 'labrador') {
               this.validateLabrador(input);
+            } else if (this.translate_from == 'parkiet') {
+              this.validateParkiet(input);
             }
 
             this.className = 'papegaai';
@@ -179,6 +181,23 @@ export class AppComponent implements OnInit {
     for (const segment of segObject) {
         if (segment.isWordLike) {
             if (segment.segment !== 'woefie') {
+                this.error_translation_input = "Input komt niet overeen met geselecteerde taal";
+                this.translation_output = '';
+                return false;
+            }
+        }
+    }
+
+    this.error_translation_input = "";
+    return true;
+}
+
+  validateParkiet(sentence: string): boolean {
+    const segObject = this.segmenter(sentence);
+
+    for (const segment of segObject) {
+        if (segment.isWordLike) {
+            if (segment.segment !== 'piep' && segment.segment !== 'tjilp') {
                 this.error_translation_input = "Input komt niet overeen met geselecteerde taal";
                 this.translation_output = '';
                 return false;
