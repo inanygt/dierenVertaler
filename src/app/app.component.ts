@@ -106,13 +106,13 @@ export class AppComponent implements OnInit {
 
     var result = translation_input.match( /[^\.!\?]+[\.!\?]+/g );
     const sentences = [];
+    const colors = ['red', 'green', 'yellow', 'blue'];
 
     result.forEach((segment, index) =>  {
-      if (index >= 1 ) {
-        sentences.push(' ik praat je na: ' + segment.trim() + '</br>');
-      } else {
-        sentences.push('ik praat je na: ' + segment.trim() + '</br>');
-      }
+
+      const color = colors[index % colors.length];
+
+      sentences.push(' ik praat je na: ' + `<span class="${color}">` + segment.trim() + '</span>' + '</br>');
     })
 
     return sentences.join('');
