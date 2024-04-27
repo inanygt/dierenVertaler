@@ -2,33 +2,31 @@
 
 <div class="outer-container">
   <div class="form-container">
-    <form [formGroup]="reactiveForm" (ngSubmit)="handleTranslation()">
+    <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
       <h1 class="h1">Dierenvertaler</h1>
 
 
       <label class="label" for="content">Te vertalen tekst</label>
-      <textarea name="content_input" id="content_input" rows="10" formControlName="content_input"></textarea>
+      <textarea name="content_input" id="content_input" rows="10" ngModel></textarea>
 
       <div class="button_container">
 
         <div class="translate_from_container">
-        <label for="from">Van</label>
-        <select #selectFrom (change)="onSelectChangeFrom(selectFrom.value)" name="from" id="" formControlName="translate_from">
+        <label for="translate_from">Van</label>
+        <select #selectFrom (change)="onSelectChangeFrom(selectFrom.value)" name="translate_from" id="" ngModel>
           <option *ngFor="let original of originals" value="{{original}}">{{original}}</option>
         </select>
         </div>
 
         <div class="translate_to_container">
-        <label for="to">Naar</label>
-          <select (change)="onSelectChangeTo($event)" name="to" id="" formControlName="translate_to">
+        <label for="translate_to">Naar</label>
+          <select (change)="onSelectChangeTo($event)" name="translate_to" id="" ngModel>
             <option *ngFor="let translator of translators" value="{{translator}}">{{translator}}</option>
         </select>
         </div>
 
         <input type="submit" value="Vertaal" id="button_translate">
       </div>
-
-
 
       <textarea name="content_output" id="content_output" rows="10">{{this.sentence}}</textarea>
     </form>

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, ReactiveFormsModule],
+  imports: [RouterOutlet, CommonModule, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -24,11 +24,10 @@ export class AppComponent implements OnInit {
   originals: string[] = ['mens', 'labrador', 'poedel', 'parkiet'];
   translators: string[] = [];
 
-  reactiveForm: FormGroup;
 
-  handleTranslation() {
+  onSubmit(form: NgForm) {
 
-    this.form_input = this.reactiveForm.value.content_input;
+    this.form_input = form.value.content_input;
 
     if (typeof this.form_input === 'string' && this.form_input.length !== 0) {
 
@@ -156,10 +155,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.reactiveForm = new FormGroup({
-      content_input: new FormControl(null),
-      translate_from: new FormControl(null),
-      translate_to: new FormControl(null),
-    })
+
   }
 }
