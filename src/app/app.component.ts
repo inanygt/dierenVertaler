@@ -123,6 +123,8 @@ export class AppComponent implements OnInit {
 
   onSelectChangeFrom(translate_from: string): void {
 
+    this.translate_from = translate_from;
+
     switch (translate_from) {
       case 'mens':
         this.translators = ['labrador', 'poedel', 'parkiet', 'papegaai'];
@@ -151,7 +153,22 @@ export class AppComponent implements OnInit {
     for (const segment of segObject) {
         if (segment.isWordLike) {
             if (segment.segment !== 'woef') {
-                console.log('false');
+                this.error_translation_input = "Input komt niet overeen met geselecteerde taal";
+                this.translation_output = '';
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+  validatePoedel(sentence: string): boolean {
+    const segObject = this.segmenter(sentence);
+
+    for (const segment of segObject) {
+        if (segment.isWordLike) {
+            if (segment.segment !== 'woefie') {
                 this.error_translation_input = "Input komt niet overeen met geselecteerde taal";
                 this.translation_output = '';
                 return false;
