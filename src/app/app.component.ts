@@ -103,9 +103,9 @@ export class AppComponent implements OnInit {
 
     result.forEach((segment, index) =>  {
       if (index >= 1 ) {
-        sentences.push(' ik praat je na: ' + segment.trim());
+        sentences.push(' ik praat je na: ' + segment.trim() + '</br>');
       } else {
-        sentences.push('ik praat je na: ' + segment.trim());
+        sentences.push('ik praat je na: ' + segment.trim() + '</br>');
       }
     })
 
