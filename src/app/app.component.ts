@@ -40,7 +40,12 @@ export class AppComponent implements OnInit {
           break;
           case 'poedel':
             this.translation_output = this.handlePoedel(input);
-            this.validateLabrador(input);
+
+
+            if (this.translate_from == 'labrador') {
+              this.validateLabrador(input);
+            }
+
             this.className = 'poedel';
           break;
           case 'parkiet':
@@ -49,7 +54,11 @@ export class AppComponent implements OnInit {
           break;
           case 'papegaai':
             this.translation_output = this.handlePapegaai(input);
-            this.validateLabrador(input);
+
+            if (this.translate_from == 'labrador') {
+              this.validateLabrador(input);
+            }
+
             this.className = 'papegaai';
         }
 
@@ -160,6 +169,7 @@ export class AppComponent implements OnInit {
         }
     }
 
+    this.error_translation_input = "";
     return true;
 }
 
@@ -176,6 +186,7 @@ export class AppComponent implements OnInit {
         }
     }
 
+    this.error_translation_input = "";
     return true;
 }
 
