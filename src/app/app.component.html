@@ -1,39 +1,38 @@
 <main>
 
-<div class="outer-container">
-  <div class="form-container">
-    <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
-      <h1 class="h1">Dierenvertaler</h1>
+  <div class="outer-container">
+    <div class="form-container">
+      <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
+        <h1 class="h1">Dierenvertaler</h1>
 
 
-      <label class="label" for="content">Te vertalen tekst</label>
-      <textarea name="translation_input" id="content_input" rows="10" ngModel></textarea>
+        <label class="label" for="content">Te vertalen tekst</label>
+        <textarea name="translation_input" id="content_input" rows="10" ngModel></textarea>
 
-      <div class="button_container">
+        <div class="button_container">
 
-        <div class="translate_from_container">
-        <label for="translate_from">Van</label>
-        <select #selectFrom (change)="onSelectChangeFrom(selectFrom.value)" name="translate_from" id="" ngModel>
-          <option *ngFor="let original of originals" value="{{original}}">{{original}}</option>
-        </select>
+          <div class="translate_from_container">
+          <label for="translate_from">Van</label>
+          <select #selectFrom (change)="onSelectChangeFrom(selectFrom.value)" name="translate_from" id="" ngModel>
+            <option *ngFor="let original of originals" value="{{original}}">{{original}}</option>
+          </select>
+          </div>
+
+          <div class="translate_to_container">
+          <label for="translate_to">Naar</label>
+            <select (change)="onSelectChangeTo($event)" name="translate_to" id="" ngModel>
+              <option *ngFor="let translator of translators" value="{{translator}}">{{translator}}</option>
+          </select>
+          </div>
+
+          <input type="submit" value="Vertaal" id="button_translate">
         </div>
 
-        <div class="translate_to_container">
-        <label for="translate_to">Naar</label>
-          <select (change)="onSelectChangeTo($event)" name="translate_to" id="" ngModel>
-            <option *ngFor="let translator of translators" value="{{translator}}">{{translator}}</option>
-        </select>
-        </div>
+        <div class="translation_output" [ngClass]="getOutputTextareaClass()" id="content_output" [innerHTML]="translation_output"></div>
 
-        <input type="submit" value="Vertaal" id="button_translate">
-      </div>
-
-      <textarea name="translation_output" id="content_output" rows="10">{{this.translation_output}}</textarea>
-    </form>
+      </form>
+    </div>
   </div>
-
-
-</div>
 
 </main>
 

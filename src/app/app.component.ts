@@ -27,26 +27,25 @@ export class AppComponent implements OnInit {
 
     const input = form.value.translation_input;
 
-    if (typeof input === 'string' && input.length !== 0) {
+      if (typeof input === 'string' && input.length !== 0) {
 
-      switch (this.translate_to) {
-        case 'labrador':
-          this.translation_output = this.handleLabrador(input);
-        break;
-        case 'poedel':
-          this.translation_output = this.handlePoedel(input);
-        break;
-        case 'parkiet':
-          this.translation_output = this.handleParkiet(input);
-        break;
-        case 'papegaai':
-          this.translation_output = this.handlePapegaai(input);
+        switch (this.translate_to) {
+          case 'labrador':
+            this.translation_output = this.handleLabrador(input);
+          break;
+          case 'poedel':
+            this.translation_output = this.handlePoedel(input);
+          break;
+          case 'parkiet':
+            this.translation_output = this.handleParkiet(input);
+          break;
+          case 'papegaai':
+            this.translation_output = this.handlePapegaai(input);
+        }
+
+      } else {
+        this.translation_output = '';
       }
-
-    } else {
-      this.translation_output = '';
-    }
-
   }
 
   handleLabrador(translation_input: string): string {
@@ -83,9 +82,10 @@ export class AppComponent implements OnInit {
     segObject.forEach(segmentObject => {
 
       if (segmentObject.isWordLike) {
-
         if (this.startsWithVowel(segmentObject.segment)) {
-          segmentObject.segment = 'tjilp'
+
+          segmentObject.segment = '<span class="tjilp">tjilp</span>'
+          console.log(segmentObject.segment);
         } else {
           segmentObject.segment = 'piep'
         }
@@ -144,6 +144,21 @@ export class AppComponent implements OnInit {
   startsWithVowel(word: string): boolean {
     return /^[aeiou]/i.test(word);
   }
+
+  getOutputTextareaClass(): string {
+    switch (this.translate_to) {
+        case 'labrador':
+            return 'labrador-output';
+        case 'poedel':
+            return 'poedel-output';
+        case 'parkiet':
+            return 'parkiet-output';
+        case 'papegaai':
+            return 'papegaai-output';
+        default:
+            return ''; // Return default class if no specific style is needed
+    }
+}
 
   ngOnInit() {
 

@@ -85,3 +85,33 @@ select {
   width: 100%;
   padding: 12px 20px;
 }
+
+.labrador-output {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.poedel-output {
+  color: gray;
+  font-size: 12px;
+}
+
+.parkiet-output {
+    /* Styles for parkiet translation */
+}
+
+.papegaai-output {
+    /* Styles for papegaai translation */
+}
+
+.tjilp {
+  color: red;
+}
+
+.translation_output {
+  width: 100%;
+  height: auto;
+  min-height: 10rem;
+  background-color: white;
+  border-radius: 20px;
+}
