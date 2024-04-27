@@ -41,6 +41,9 @@ export class AppComponent implements OnInit {
         break;
         case 'parkiet':
           this.sentence = this.handleParkiet(this.form_input);
+        break;
+        case 'papegaai':
+          this.sentence = this.handlePapegaai(this.form_input);
       }
 
     } else {
@@ -49,11 +52,16 @@ export class AppComponent implements OnInit {
 
   }
 
+
+
   handleLabrador(sentence: string) {
 
     const seg = new Intl.Segmenter(undefined, { granularity: 'word'})
+    const test = [...seg.segment(sentence)];
+
 
     this.sentenceObject = [...seg.segment(sentence)]
+
     this.sentenceObject.forEach(segmentObject => {
 
       if (segmentObject.isWordLike) {
@@ -69,7 +77,6 @@ export class AppComponent implements OnInit {
     const seg = new Intl.Segmenter(undefined, { granularity: 'word'})
 
     this.sentenceObject = [...seg.segment(sentence)]
-    console.log(this.sentenceObject);
 
     this.sentenceObject.forEach(segmentObject => {
 
@@ -86,10 +93,7 @@ export class AppComponent implements OnInit {
     const seg = new Intl.Segmenter(undefined, { granularity: 'word'})
 
     this.sentenceObject = [...seg.segment(sentence)]
-    console.log(this.sentenceObject);
     this.sentenceObject.forEach(segmentObject => {
-
-
 
       if (segmentObject.isWordLike) {
 
@@ -98,7 +102,6 @@ export class AppComponent implements OnInit {
         } else {
           segmentObject.segment = 'piep'
         }
-
       }
     })
 
@@ -106,15 +109,34 @@ export class AppComponent implements OnInit {
     return this.newSentence;
   }
 
+  handlePapegaai(sentence: any) {
+
+
+    const sentences = sentence.split(/[\.\?\!]+/);
+
+    const test = [];
+
+
+    sentences.forEach(sentence =>  {
+      if (sentence !== '') {
+        test.push('ik praat je na: ' + sentence);
+      }
+
+    })
+
+
+
+    return sentences;
+
+  }
+
   startsWithVowel(word: string) {
     return /^[aeiou]/i.test(word); // i flag makes the regex case-insensitive
   }
 
-  onSelectChangeFrom(event: any) {
+  onSelectChangeFrom(translate_from: string) {
 
-    const target = event.target.value;
-
-    switch (target) {
+    switch (translate_from) {
       case 'mens':
         this.translators = ['labrador', 'poedel', 'parkiet', 'papegaai'];
       break;

@@ -3,15 +3,17 @@
 <div class="outer-container">
   <div class="form-container">
     <form [formGroup]="reactiveForm" (ngSubmit)="handleTranslation()">
-      <h1>Dierenvertaler</h1>
-      <label for="content">Te vertalen tekst</label>
+      <h1 class="h1">Dierenvertaler</h1>
+
+
+      <label class="label" for="content">Te vertalen tekst</label>
       <textarea name="content_input" id="content_input" rows="10" formControlName="content_input"></textarea>
 
       <div class="button_container">
 
         <div class="translate_from_container">
         <label for="from">Van</label>
-        <select (change)="onSelectChangeFrom($event)" name="from" id="" formControlName="translate_from">
+        <select #selectFrom (change)="onSelectChangeFrom(selectFrom.value)" name="from" id="" formControlName="translate_from">
           <option *ngFor="let original of originals" value="{{original}}">{{original}}</option>
         </select>
         </div>
@@ -23,7 +25,7 @@
         </select>
         </div>
 
-        <input type="submit" value="translate" id="button_translate">
+        <input type="submit" value="Vertaal" id="button_translate">
       </div>
 
 
@@ -31,6 +33,8 @@
       <textarea name="content_output" id="content_output" rows="10">{{this.sentence}}</textarea>
     </form>
   </div>
+
+
 </div>
 
 </main>
