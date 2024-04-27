@@ -28,13 +28,12 @@
           <input type="submit" value="Vertaal" id="button_translate">
         </div>
 
-        <div class="translation_output" [ngClass]="getOutputTextareaClass()" id="content_output" [innerHTML]="translation_output"></div>
+        <div class="translation_output" [ngClass]="className" id="content_output" [innerHTML]="translation_output"></div>
 
       </form>
     </div>
   </div>
 
 </main>
-
 
 <router-outlet />

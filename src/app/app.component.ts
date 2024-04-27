@@ -11,6 +11,7 @@ import { FormsModule, NgForm } from '@angular/forms';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
+
   title = 'dierenVertaler';
 
   translation_input: string;
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit {
   originals: string[] = ['mens', 'labrador', 'poedel', 'parkiet'];
   translators: string[] = [];
 
+  className: string = 'labrador';
 
   onSubmit(form: NgForm): void {
 
@@ -32,15 +34,19 @@ export class AppComponent implements OnInit {
         switch (this.translate_to) {
           case 'labrador':
             this.translation_output = this.handleLabrador(input);
+            this.className = 'labrador';
           break;
           case 'poedel':
             this.translation_output = this.handlePoedel(input);
+            this.className = 'poedel';
           break;
           case 'parkiet':
             this.translation_output = this.handleParkiet(input);
+            this.className = 'parkiet';
           break;
           case 'papegaai':
             this.translation_output = this.handlePapegaai(input);
+            this.className = 'papegaai';
         }
 
       } else {
@@ -144,21 +150,6 @@ export class AppComponent implements OnInit {
   startsWithVowel(word: string): boolean {
     return /^[aeiou]/i.test(word);
   }
-
-  getOutputTextareaClass(): string {
-    switch (this.translate_to) {
-        case 'labrador':
-            return 'labrador-output';
-        case 'poedel':
-            return 'poedel-output';
-        case 'parkiet':
-            return 'parkiet-output';
-        case 'papegaai':
-            return 'papegaai-output';
-        default:
-            return ''; // Return default class if no specific style is needed
-    }
-}
 
   ngOnInit() {
 
