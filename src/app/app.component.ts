@@ -70,21 +70,22 @@ export class AppComponent implements OnInit {
       }
     }
 
-  addProost(input: any) {
-    const sentences: string[] = [];
-    var result = input.match(/[^\.!\?]*[\.!\?]+/g);
-
-    for (let i = 0; i < result.length; i++) {
-      const sentence = result[i];
-      if (i % 2 === 0) {
-        sentences.push(sentence + ' Proost! ')
-      } else {
-        sentences.push(sentence.trim());
+  fourthWordBackwards(input: string) {
+    const segObject = this.segmenter(input);
+    let wordCount = 0;
+    let modifiedInput = '';
+    for (const segment of segObject) {
+      if (segment.isWordLike) {
+        wordCount++;
+        if (wordCount % 4 === 0) {
+          segment.segment = segment.segment.split('').reverse().join('');
+        }
       }
+      modifiedInput += segment.segment;
     }
+    console.log(modifiedInput);
 
-    return sentences.join('');
-
+    return modifiedInput;
   }
 
   handleLabrador(translation_input: string): string {
@@ -102,7 +103,9 @@ export class AppComponent implements OnInit {
 
     if (this.is_drunk) {
       this.translation_output = this.addProost(this.translation_output);
-      return this.translation_output += ' Burp!'
+      this.translation_output = this.fourthWordBackwards(this.translation_output);
+      this.translation_output += ' Burp!'
+      return this.translation_output;
     }
 
     return this.translation_output;
@@ -122,6 +125,7 @@ export class AppComponent implements OnInit {
 
     if (this.is_drunk) {
       this.translation_output = this.addProost(this.translation_output);
+      this.translation_output = this.fourthWordBackwards(this.translation_output);
       this.translation_output += ' Burp!'
     }
 
@@ -147,6 +151,7 @@ export class AppComponent implements OnInit {
 
     if (this.is_drunk) {
       this.translation_output = this.addProost(this.translation_output);
+      this.translation_output = this.fourthWordBackwards(this.translation_output);
       this.translation_output += ' Burp!'
     }
 
@@ -166,6 +171,7 @@ export class AppComponent implements OnInit {
 
       if (this.is_drunk) {
         sentence = this.addProost(this.translation_output);
+        sentence = this.fourthWordBackwards(this.translation_output);
         sentence += 'Burp!'
       }
 
@@ -314,5 +320,22 @@ export class AppComponent implements OnInit {
         this.translators = ['papegaai'];
         break;
     }
+  }
+
+  addProost(input: any) {
+    const sentences: string[] = [];
+    var result = input.match(/[^\.!\?]*[\.!\?]+/g);
+
+    for (let i = 0; i < result.length; i++) {
+      const sentence = result[i];
+      if (i % 2 === 0) {
+        sentences.push(sentence + ' Proost! ')
+      } else {
+        sentences.push(sentence.trim());
+      }
+    }
+
+    return sentences.join('');
+
   }
 }
