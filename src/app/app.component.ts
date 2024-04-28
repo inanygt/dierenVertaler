@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   originals: string[] = ['mens', 'labrador', 'poedel', 'parkiet'];
   translators: string[] = [];
 
-  error_translation_input: string = '';
+  error_translation: string = '';
   is_drunk: boolean = false;
 
   className: string = '';
@@ -68,6 +68,23 @@ export class AppComponent implements OnInit {
       } else {
         this.translation_output = '';
       }
+    }
+
+  addProost(input: any) {
+    const sentences: string[] = [];
+    var result = input.match(/[^\.!\?]*[\.!\?]+/g);
+
+    for (let i = 0; i < result.length; i++) {
+      const sentence = result[i];
+      if (i % 2 === 0) {
+        sentences.push(sentence + ' Proost! ')
+      } else {
+        sentences.push(sentence.trim());
+      }
+    }
+
+    return sentences.join('');
+
   }
 
   handleLabrador(translation_input: string): string {
@@ -84,7 +101,8 @@ export class AppComponent implements OnInit {
     this.translation_output = segObject.map(x => x.segment).join('');
 
     if (this.is_drunk) {
-      this.translation_output += ' Burp!'
+      this.translation_output = this.addProost(this.translation_output);
+      return this.translation_output += ' Burp!'
     }
 
     return this.translation_output;
@@ -195,14 +213,14 @@ export class AppComponent implements OnInit {
     for (const segment of segObject) {
         if (segment.isWordLike) {
             if (segment.segment !== 'woef') {
-                this.error_translation_input = "Input komt niet overeen met geselecteerde taal";
+                this.error_translation = "Input komt niet overeen met geselecteerde taal";
                 this.translation_output = '';
                 return false;
             }
         }
     }
 
-    this.error_translation_input = "";
+    this.error_translation = "";
     return true;
 }
 
@@ -212,14 +230,14 @@ export class AppComponent implements OnInit {
     for (const segment of segObject) {
         if (segment.isWordLike) {
             if (segment.segment !== 'woefie') {
-                this.error_translation_input = "Input komt niet overeen met geselecteerde taal";
+                this.error_translation = "Input komt niet overeen met geselecteerde taal";
                 this.translation_output = '';
                 return false;
             }
         }
     }
 
-    this.error_translation_input = "";
+    this.error_translation = "";
     return true;
 }
 
@@ -229,14 +247,14 @@ export class AppComponent implements OnInit {
     for (const segment of segObject) {
         if (segment.isWordLike) {
             if (segment.segment !== 'piep' && segment.segment !== 'tjilp') {
-                this.error_translation_input = "Input komt niet overeen met geselecteerde taal";
+                this.error_translation = "Input komt niet overeen met geselecteerde taal";
                 this.translation_output = '';
                 return false;
             }
         }
     }
 
-    this.error_translation_input = "";
+    this.error_translation = "";
     return true;
 }
 
