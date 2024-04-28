@@ -136,12 +136,19 @@ export class AppComponent implements OnInit {
   handlePapegaai(translation_input: any): string {
 
     const sentences: string[] = [];
+    let sentence: string;
     const colors = ['red', 'green', 'yellow', 'blue'];
 
     var result = translation_input.match(/[^\.!\?]*[\.!\?]+/g);
 
     if (!translation_input.includes('/[^\.!\?]*[\.!\?]+/g')) {
-      return ' ik praat je na: ' + `<span class="${colors[0]}">` + translation_input.trim() + '</span>' + '</br>'
+      sentence = 'ik praat je na: ' + `<span class="${colors[0]}">` + translation_input.trim() + '</span>' + '</br>'
+
+      if (this.is_drunk) {
+        sentence += 'Burp!'
+      }
+
+      return sentence;
     }
 
     result.forEach((segment, index) =>  {
