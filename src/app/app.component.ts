@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -10,7 +10,7 @@ import { FormsModule, NgForm } from '@angular/forms';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
   title = 'Dierenvertaler';
 
@@ -42,7 +42,6 @@ export class AppComponent implements OnInit {
           case 'poedel':
             this.translation_output = this.handlePoedel(input);
 
-
             if (this.translate_from == 'labrador') {
               this.validateLabrador(input);
             }
@@ -70,7 +69,7 @@ export class AppComponent implements OnInit {
       }
     }
 
-  fourthWordBackwards(input: string) {
+  fourthWordBackwards(input: string): string {
     const segObject = this.segmenter(input);
     let wordCount = 0;
     let modifiedInput = '';
@@ -83,7 +82,6 @@ export class AppComponent implements OnInit {
       }
       modifiedInput += segment.segment;
     }
-    console.log(modifiedInput);
 
     return modifiedInput;
   }
@@ -158,7 +156,7 @@ export class AppComponent implements OnInit {
     return this.translation_output;
   }
 
-  handlePapegaai(translation_input: any): string {
+  handlePapegaai(translation_input: string): string {
 
     const sentences: string[] = [];
     let sentence: string;
@@ -276,10 +274,6 @@ export class AppComponent implements OnInit {
 
   startsWithVowel(word: string): boolean {
     return /^[aeiou]/i.test(word);
-  }
-
-  ngOnInit() {
-
   }
 
   onInputChange(event: Event): void {
