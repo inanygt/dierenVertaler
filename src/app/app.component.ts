@@ -159,22 +159,13 @@ export class AppComponent {
   handlePapegaai(translation_input: string): string {
 
     const sentences: string[] = [];
-    let sentence: string;
     const colors = ['red', 'green', 'yellow', 'blue'];
 
     var result = translation_input.match(/[^\.!\?]*[\.!\?]+/g);
 
     if (this.hasNoPunctuation(translation_input)) {
-      console.log('no punctiation');
 
       sentences.push('ik praat je na: ' + `<span class="${colors[0]}">` + translation_input.trim() + '</span>' + '</br>');
-
-      // if (this.is_drunk) {
-      //   sentence = this.addProost(this.translation_output);
-      //   sentence = this.fourthWordBackwards(this.translation_output);
-      //   sentence += 'Burp!'
-      // }
-
       return sentences.join('');
     }
 
@@ -182,10 +173,6 @@ export class AppComponent {
       const color = colors[index % colors.length];
       sentences.push(' ik praat je na: ' + `<span class="${color}">` + segment.trim() + '</span>' + '</br>');
     })
-
-    if (this.is_drunk) {
-      sentences.push(' Burp!');
-    }
 
     return sentences.join('');
   }
