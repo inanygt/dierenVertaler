@@ -253,13 +253,34 @@ export class AppComponent implements OnInit {
   detectLanguage(input: string) {
     if (input.includes('woefie')) {
       this.translate_from = 'poedel';
+      this.updateTranslateToOptions();
     } else if (input.includes('woef')) {
       this.translate_from = 'labrador'
+      this.updateTranslateToOptions();
     } else if (input.includes('tjilp') || (input.includes('piep'))) {
       this.translate_from = 'parkiet';
+      this.updateTranslateToOptions();
     } else {
       this.translate_from = 'mens';
+      this.updateTranslateToOptions();
     }
   }
 
+  updateTranslateToOptions() {
+
+    switch (this.translate_from) {
+      case 'mens':
+        this.translators = ['labrador', 'poedel', 'parkiet', 'papegaai'];
+        break;
+      case 'labrador':
+        this.translators = ['poedel', 'papegaai'];
+        break;
+      case 'poedel':
+        this.translators = ['labrador', 'papegaai'];
+        break;
+      case 'parkiet':
+        this.translators = ['papegaai'];
+        break;
+    }
+  }
 }
