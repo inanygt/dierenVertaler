@@ -12,7 +12,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 })
 export class AppComponent implements OnInit {
 
-  title = 'Hello, dierenVertaler';
+  title = 'Dierenvertaler';
 
   translation_input: string;
   translation_output: string;
