@@ -121,6 +121,7 @@ export class AppComponent implements OnInit {
     this.translation_output = segObject.map(x => x.segment).join('');
 
     if (this.is_drunk) {
+      this.translation_output = this.addProost(this.translation_output);
       this.translation_output += ' Burp!'
     }
 
@@ -145,6 +146,7 @@ export class AppComponent implements OnInit {
     this.translation_output = segObject.map(x => x.segment).join('');
 
     if (this.is_drunk) {
+      this.translation_output = this.addProost(this.translation_output);
       this.translation_output += ' Burp!'
     }
 
@@ -163,6 +165,7 @@ export class AppComponent implements OnInit {
       sentence = 'ik praat je na: ' + `<span class="${colors[0]}">` + translation_input.trim() + '</span>' + '</br>'
 
       if (this.is_drunk) {
+        sentence = this.addProost(this.translation_output);
         sentence += 'Burp!'
       }
 
