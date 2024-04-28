@@ -27,7 +27,7 @@ textarea {
 }
 
 select {
-  width: 200px;
+  width: 100px;
   margin-right: 1rem;
   cursor: pointer;
 }
@@ -71,7 +71,7 @@ select {
 
 .form-container {
   margin-inline: 2rem;
-  max-width: 58rem;
+  max-width: 38rem;
   width: 100%;
 }
 
@@ -118,4 +118,32 @@ select {
 input[type="checkbox"] {
   margin-right: .6rem;
   margin-bottom: .6rem;
+}
+
+@media screen and (max-width: 600px) {
+  .button_container {
+    flex-wrap: wrap;
+    row-gap: 1rem;
+  }
+
+  .translate_from_container {
+    width: 50%;
+    order: 1;
+  }
+
+  .translate_to_container {
+    width: 50%;
+    order: 2;
+  }
+
+  .checkbox_container {
+    width: 50%;
+    order: 3;
+    margin-inline: 0;
+  }
+
+  #button_translate {
+    // width: 50%;
+    order: 4;
+  }
 }
