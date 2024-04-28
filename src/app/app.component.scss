@@ -8,42 +8,47 @@ main {
   font-family: "Roboto", sans-serif;
 }
 
-h1 {
-
-}
-
 .h1 {
   padding-bottom: .6rem;
+  font-size: 2.4rem;
+  font-weight: 500;
 }
 
-label {
+.translation_labels {
   padding-bottom: .4rem;
   display: inline-block;
 }
 
 textarea {
   border-radius: 20px;
-  border: none
+  border: none;
+  min-height: 10rem;
 }
 
 select {
   width: 100px;
   margin-right: 1rem;
+  padding-inline: .4rem 1rem;
+  padding-block: .2rem;
+  border-radius: 10px;
   cursor: pointer;
 }
 
 .button_container {
   display: flex;
-  margin-block: 1rem;
+  margin-block: 1rem 2rem;
 }
 
 #button_translate {
+  align-self: flex-end;
+  height: 1.8rem;
   border-radius: 24px;
   padding-inline: 1rem;
   justify-self: flex-start;
   border: none;
   cursor: pointer;
   transition: .3s ease;
+  width: 6.325rem;
 
   &:hover {
     background-color: #A7C957;
@@ -84,6 +89,7 @@ select {
 #content_output {
   width: 100%;
   padding: 12px 20px;
+  background-color: rgba(200, 200, 200, 0.3);
 }
 
 .labrador {
@@ -102,48 +108,55 @@ select {
   min-height: 10rem;
   background-color: white;
   border-radius: 20px;
+  border: 2px dashed black;
 }
 
-.error {
-  color: red;
+.small {
   margin-left: 1rem;
+  padding-bottom: .3rem;
+  display: inline-block;
+
+  &-error {
+    color: red;
+  }
 }
 
 .checkbox_container {
   margin-inline: 1rem 2rem;
+  margin-bottom: .2rem;
   display: flex;
   align-items: flex-end;
 }
 
 input[type="checkbox"] {
   margin-right: .6rem;
-  margin-bottom: .6rem;
+  margin-bottom: .2rem;
 }
 
 @media screen and (max-width: 600px) {
   .button_container {
     flex-wrap: wrap;
     row-gap: 1rem;
+    column-gap: 1rem;
   }
 
   .translate_from_container {
-    width: 50%;
+    width: 45%;
     order: 1;
   }
 
   .translate_to_container {
-    width: 50%;
+    width: 45%;
     order: 2;
   }
 
   .checkbox_container {
-    width: 50%;
+    width: 45%;
     order: 3;
     margin-inline: 0;
   }
 
   #button_translate {
-    // width: 50%;
     order: 4;
   }
 }

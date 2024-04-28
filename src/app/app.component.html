@@ -1,18 +1,18 @@
 <main>
 
   <div class="outer-container">
-    <div class="form-container">
-      <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
+      <form class="form-container" #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
         <h1 class="h1">{{title}}</h1>
 
-        <label class="label" for="content">Te vertalen tekst</label>
+        <!-- <label class="label" for="content">Te vertalen tekst</label> -->
+        <small class="small ">Te vertalen tekst</small>
         <textarea name="translation_input" id="content_input" ngModel (input)="onInputChange($event)" required></textarea>
-        <small class="error">{{error_translation}}</small>
+        <small class="small small-error">{{error_translation}}</small>
 
         <div class="button_container">
 
           <div class="translate_from_container">
-          <label for="translate_from">Van</label>
+          <label class="translation_labels" for="translate_from">Van</label>
           <select #selectFrom (change)="onSelectChangeFrom(selectFrom.value)" name="translate_from" id="" [(ngModel)]="translate_from" required>
             <option selected >Taal herkennen</option>
             <option *ngFor="let original of originals" value="{{original}}">{{original}}</option>
@@ -20,12 +20,12 @@
           </div>
 
           <div class="checkbox_container">
-            <input type="checkbox" name="drunk" [(ngModel)]="is_drunk">
+            <input type="checkbox" id="drunk" name="drunk" [(ngModel)]="is_drunk">
             <label for="drunk">Ik ben zo dronken!!!!</label>
           </div>
 
           <div class="translate_to_container">
-          <label for="translate_to">Naar</label>
+          <label class="translation_labels" for="translate_to">Naar</label>
             <select (change)="onSelectChangeTo($event)" name="translate_to" id="" ngModel required>
               <option *ngFor="let translator of translators" value="{{translator}}">{{translator}}</option>
           </select>
@@ -37,7 +37,6 @@
         <div class="translation_output" [ngClass]="className" id="content_output" [innerHTML]="translation_output"></div>
 
       </form>
-    </div>
   </div>
 
 </main>
