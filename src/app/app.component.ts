@@ -164,16 +164,18 @@ export class AppComponent {
 
     var result = translation_input.match(/[^\.!\?]*[\.!\?]+/g);
 
-    if (!translation_input.includes('/[^\.!\?]*[\.!\?]+/g')) {
-      sentence = 'ik praat je na: ' + `<span class="${colors[0]}">` + translation_input.trim() + '</span>' + '</br>'
+    if (this.hasNoPunctuation(translation_input)) {
+      console.log('no punctiation');
 
-      if (this.is_drunk) {
-        sentence = this.addProost(this.translation_output);
-        sentence = this.fourthWordBackwards(this.translation_output);
-        sentence += 'Burp!'
-      }
+      sentences.push('ik praat je na: ' + `<span class="${colors[0]}">` + translation_input.trim() + '</span>' + '</br>');
 
-      return sentence;
+      // if (this.is_drunk) {
+      //   sentence = this.addProost(this.translation_output);
+      //   sentence = this.fourthWordBackwards(this.translation_output);
+      //   sentence += 'Burp!'
+      // }
+
+      return sentences.join('');
     }
 
     result.forEach((segment, index) =>  {
@@ -186,6 +188,10 @@ export class AppComponent {
     }
 
     return sentences.join('');
+  }
+
+  hasNoPunctuation(input: string): boolean {
+    return !/[.!?]/.test(input)
   }
 
   onSelectChangeFrom(translate_from: string): void {
